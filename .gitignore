@@ -1,0 +1,39 @@
+# Build artifacts
+build/
+bin/
+*.o
+*.a
+*.so
+*.dll
+*.exe
+*.out
+*.dylib
+
+# IDE and editor specific files
+.vscode/
+.idea/
+*.suo
+*.user
+*.sln.docstates
+*.swp
+*.swo
+*~
+
+# Configuration files that might contain secrets
+.env
+config.local.json
+*.pem
+*.key
+
+# Log files
+*.log
+
+*.local
+
+# Test reports and coverage
+coverage/
+*.gcno
+*.gcda
+
+# Docker - often handled by .dockerignore, but good to have here too for local state
+docker-compose.override.yml
