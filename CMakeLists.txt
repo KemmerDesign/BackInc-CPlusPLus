@@ -8,14 +8,17 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # --- Dependencias del Sistema ---
-# 1. Encontramos libpqxx y su dependencia libpq usando el sistema.
-#    Esto nos da la versión precompilada y estable de tu Ubuntu.
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(LibPQXX REQUIRED libpqxx)
-message(STATUS "CEO: Encontrado proveedor del sistema libpqxx v${LibPQXX_VERSION}")
-
 # --- Dependencias del Proyecto (FetchContent) ---
 include(FetchContent)
+
+# 1. Contratando a libpqxx.
+FetchContent_Declare(
+    libpqxx
+    GIT_REPOSITORY https://github.com/jtv/libpqxx.git
+    GIT_TAG 7.7
+)
+FetchContent_MakeAvailable(libpqxx)
+message(STATUS "CEO: Contratado y listo el proveedor libpqxx.")
 
 # 2. Contratando a Asio.
 FetchContent_Declare(
@@ -44,6 +47,6 @@ add_executable(dataphone_app src/main.cpp)
 target_link_libraries(dataphone_app PRIVATE
     dataphone_lib         # Nuestra biblioteca de lógica
     Crow::Crow            # El target moderno de Crow
-    ${LibPQXX_LIBRARIES}  # Las bibliotecas de libpqxx del sistema
+    pqxx                  # Libpqxx via FetchContent
 )
 message(STATUS "CEO: Proyecto configurado y listo para ensamblar.")
